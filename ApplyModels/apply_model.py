@@ -19,8 +19,6 @@ from train_model import STOPWORDS, is_relational
 #  so that [POSTIDINDEX:] indexes the true features 
 POSTIDINDEX = 3
 
-
-
 '''Some functions for evaluating on region proposals. Adding the bounding 
 boxes to the refdf, pre-computing intersection over union, etc.'''
 
@@ -179,6 +177,8 @@ def apply_refexp_to_image(row, wac, X,
     
     X_tst, correct_ix = make_test(X, (icorp, image_id, region_id))
 
+    if region_id is 0:
+        correct_ix = -1
     if X_tst is None:
         return np.nan, np.nan, np.nan, np.nan
     
@@ -194,7 +194,14 @@ def apply_refexp_to_image(row, wac, X,
         success = False
     else:
         success = np.argmax(composed_vector) == correct_ix
-        rank = np.where(np.argsort(composed_vector)[::-1] == correct_ix)[0][0] + 1
+        if correct_ix is -1:
+            rank = -1
+        else:
+            rank = np.where(np.argsort(composed_vector)[::-1] == correct_ix)[0][0] + 1
+        resultFormat = "Image ID: {} Region ID: {} Text: {} Coverage: {} Result: {}".format(image_id, region_id, refexp, coverage, success)
+        print resultFormat
+    with open("ClefDetailResults.txt", "w+") as writeResults:
+        writeResults.write(resultFormat)
     return coverage, success, rank, len(composed_vector)
 
 
