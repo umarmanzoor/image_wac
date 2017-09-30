@@ -26,10 +26,9 @@ import cPickle as pickle
 from glob import glob
 import os
 
-
 import sys
-sys.path.append('../Utils')
-from utils import icorpus_code, plot_labelled_bb
+sys.path.append('/home/umarmanzoor/image_wac/Utils')
+from utils import icorpus_code , plot_labelled_bb
 from utils import get_saiapr_bb, mscoco_image_filename, saiapr_image_filename
 from utils import get_imagenet_filename
 
@@ -53,7 +52,7 @@ print now
 
 ## SAIAPR
 
-#execfile('PreProcDefs/saiapr.py')
+execfile('PreProcDefs/saiapr.py')
 
 
 
@@ -76,7 +75,7 @@ print now
 
 ## ImageNet
 
-execfile('PreProcDefs/imagenet.py')
+#execfile('PreProcDefs/imagenet.py')
 
 
 

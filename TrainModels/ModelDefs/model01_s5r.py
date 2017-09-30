@@ -87,10 +87,10 @@ clsf = train_model(srefdf_tr, X, wordlist,
                    (linear_model.LogisticRegression, {'penalty':'l1'}),
                    nneg=model['nneg'], nsrc=model['nsrc'])
 
-with gzip.open('../TrainedModels/' + basename + '.pklz', 'w') as f:
+with gzip.open('Model/model1_s5r.pklz', 'w') as f:
     pickle.dump(clsf, f)
 
-with open('../TrainedModels/' + basename + '.json', 'w') as f:
+with open('Model/model1_s5r.json', 'w') as f:
     json.dump(model, f)
 
 print strftime("%Y-%m-%d %H:%M:%S")

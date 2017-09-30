@@ -42,7 +42,7 @@ from sklearn_theano.feature_extraction.caffe.googlenet_layer_names import get_go
 
 
 import sys
-sys.path.append('../Utils')
+sys.path.append('/home/umarmanzoor/image_wac/Utils')
 from utils import code_icorpus
 from utils import get_thumbnail
 from utils import join_imagenet_id
@@ -217,52 +217,14 @@ if __name__ == '__main__':
                                 batch_size=10,
                                 output_layers=(get_googlenet_layer_names()[-4],))
 
-    # print '-' * 40
-    # print strftime("%Y-%m-%d %H:%M:%S")
-    # print "SAIAPR"
-    # with gzip.open('../Preproc/PreProcOut/saiapr_bbdf.pklz', 'r') as f:
-    #     saia_bbdf = pickle.load(f)
-    # compute_feats(saia_bbdf)
-    # concatenate_feat_batches(saia_bbdf)
-
-
-    # print '-' * 40
-    # print strftime("%Y-%m-%d %H:%M:%S")
-    # print "SAIAPR BERK"
-    # with gzip.open('../Preproc/PreProcOut/berkeley_bbdf.pklz', 'r') as f:
-    #     saia_berk_bbdf = pickle.load(f)
-    # compute_feats(saia_berk_bbdf)
-    # concatenate_feat_batches(saia_berk_bbdf)
-
-
-    # print '-' * 40
-    # print strftime("%Y-%m-%d %H:%M:%S")
-    # print "MSCOCO"
-    # with gzip.open('../Preproc/PreProcOut/mscoco_bbdf.pklz', 'r') as f:
-    #     coco_bbdf = pickle.load(f)
-    # compute_feats(coco_bbdf)
-    # concatenate_feat_batches(coco_bbdf)
-
-    # print '-' * 40
-    # print strftime("%Y-%m-%d %H:%M:%S")
-    # print "MSCOCO RPROPS"
-    # with gzip.open('../Preproc/PreProcOut/cocogrprops_bbdf.pklz', 'r') as f:
-    #     grprop_bbdf = pickle.load(f)
-    # compute_feats(grprop_bbdf)
-    # concatenate_feat_batches(grprop_bbdf)
-
 
     print '-' * 40
     print strftime("%Y-%m-%d %H:%M:%S")
-    print "ImageNet"
-    with gzip.open('../Preproc/PreProcOut/imagenet_bbdf.pklz', 'r') as f:
-        in_bbdf = pickle.load(f)
-    compute_feats(in_bbdf)
-    concatenate_feat_batches(in_bbdf)
-
-
-
-
+    print "SAIAPR"
+    with gzip.open('../Preproc/PreProcOut/saiapr_bbdf.pklz', 'r') as f:
+        saia_bbdf = pickle.load(f)
+    compute_feats(saia_bbdf)
+    concatenate_feat_batches(saia_bbdf)
 
     print '-' * 40
     print 'And we\'re done!'

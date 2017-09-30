@@ -2,7 +2,7 @@
 
 this_model = '01_co75_s5r; mult'
 
-with gzip.open('../TrainModels/TrainedModels/model01_s5r.pklz', 'r') as f:
+with gzip.open('model1_s5r.pklz', 'r') as f:
     wac = pickle.load(f)
 
 print strftime("%Y-%m-%d %H:%M:%S")

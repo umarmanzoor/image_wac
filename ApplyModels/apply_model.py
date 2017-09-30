@@ -36,7 +36,6 @@ def get_gold_bbs(refdf, bbdf):
         gbbs.append(gbb)
     return gbbs
 
-
 def get_rprp_bbs(filelist, bbdf):
     outrows = []
     for this_image_id in filelist:
@@ -155,6 +154,7 @@ def apply_refexp_to_image(row, wac, X,
         refexp_toks = [w for (w,pos) in row['tagged'] if pos in restr_pos]
 
     refexp_toks_wac, coverage = reduce_refexp(wac, refexp_toks)
+
     
     if coverage == 0:
         return 0, False, np.nan, np.nan
