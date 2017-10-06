@@ -69,14 +69,15 @@ with open('PreProcOut/saiapr_berkeley_10-10_splits.json', 'w') as f:
 
 
 # create a 90/10 split as well, to have more training data
-saiapr_train_90 = list(saiapr_train_files) + list(saiapr_test_files)[:8000]
-saiapr_test_90 = list(saiapr_test_files)[8000:]
-saiapr_90_10_splits = {
-    'test': saiapr_test_90,
-    'train': saiapr_train_90
+saiapr_full = list(saiapr_train_files) + list(saiapr_test_files)
+#saiapr_train_90 = list(saiapr_train_files) + list(saiapr_test_files)[:8000]
+#saiapr_test_90 = list(saiapr_test_files)[8000:]
+
+saiapr_no_splits = {
+    'train': saiapr_full
 }
-with open('PreProcOut/saiapr_90-10_splits.json', 'w') as f:
-    json.dump(saiapr_90_10_splits, f)
+with open('PreProcOut/saiapr__splits.json', 'w') as f:
+    json.dump(saiapr_no_splits, f)
 
 ### Done!
 

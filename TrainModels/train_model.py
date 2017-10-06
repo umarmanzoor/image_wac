@@ -2,7 +2,7 @@
 
 from __future__ import division
 import numpy as np
-
+import pandas as pd
 from collections import Counter
 
 RELWORDS = ['below',
@@ -127,7 +127,6 @@ def make_train(X, wrd2dn, word, nneg, nsrc):
 
 
 
-
 def train_model(refdf, X, wordlist, classifier_spec, nneg=5, nsrc='same'):
     '''Train the WAC models, for wordlist.'''
     classifier, classf_params = classifier_spec
@@ -148,3 +147,37 @@ def train_model(refdf, X, wordlist, classifier_spec, nneg=5, nsrc='same'):
                       'nsrc': nsrc}
         print('... done.')
     return clsf
+
+def getall_regionfeatures(X):
+    ## Load Image / Segment
+    referitpath = 'ImageSegments.txt'
+    refdf = pd.read_csv(referitpath, sep=' ', names=['image_id', 'region_id'])
+    refdf['image_id'] = refdf['image_id']
+    refdf['region_id'] = refdf['region_id']
+    refdf = refdf[['image_id', 'region_id']]
+
+    image_segment_features = 'Features/ImageSegmentsFeatures.txt'
+    f = open(image_segment_features, "w")
+    for _, row in refdf.iterrows():
+        image_id = row['image_id']
+        region_id = row['region_id']
+        pos_feats = X[np.logical_and(X[:, 1] == image_id,
+                                     X[:, 2] == region_id)][:, 3:]
+
+        if len(pos_feats) != 1:
+            print 'more than one feature vec for this region (%d, %d)!' \
+                % (image_id, region_id)
+            #print 'taking first of it!'
+            #pos_feats = pos_feats[0]
+            continue
+
+        feature = ""
+        for x in np.nditer(pos_feats):
+            feature = feature + str(x) + ' '
+
+        result = "{},{},{}\n".format(image_id,region_id, feature)
+        print result
+        f.write(result)
+
+    f.close()
+    return True

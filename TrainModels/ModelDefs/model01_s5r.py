@@ -30,7 +30,7 @@ sys.path.append('../../Utils')
 sys.path.append('..')
 from utils import filter_by_filelist
 
-from train_model import train_model
+from train_model import train_model, getall_regionfeatures
 from train_model import filter_relational_expr, wordlist_by_criterion
 
 
@@ -63,7 +63,7 @@ with gzip.open('../../Preproc/PreProcOut/saiapr_refdf.pklz', 'r') as f:
 
 ### II. Set the split to use
 
-with open('../../Preproc/PreProcOut/saiapr_90-10_splits.json', 'r') as f:
+with open('../../Preproc/PreProcOut/saiapr_no_splits.json', 'r') as f:
     ssplit90 = json.load(f)
 
 srefdf_t = filter_by_filelist(srefdf, ssplit90['train'])
@@ -83,14 +83,14 @@ X = X['arr_0']
 
 ### VI. And... train away!
 
-clsf = train_model(srefdf_tr, X, wordlist,
-                   (linear_model.LogisticRegression, {'penalty':'l1'}),
-                   nneg=model['nneg'], nsrc=model['nsrc'])
+#done = getall_regionfeatures(X)
 
-with gzip.open('Model/model1_s5r.pklz', 'w') as f:
-    pickle.dump(clsf, f)
+clsf = train_model(srefdf_tr, X, wordlist, (linear_model.LogisticRegression, {'penalty':'l1'}),nneg=model['nneg'], nsrc=model['nsrc'])
 
-with open('Model/model1_s5r.json', 'w') as f:
-    json.dump(model, f)
+#with gzip.open('Model/model1_s5r.pklz', 'w') as f:
+#    pickle.dump(clsf, f)
+
+#with open('Model/model1_s5r.json', 'w') as f:
+#    json.dump(model, f)
 
 print strftime("%Y-%m-%d %H:%M:%S")
